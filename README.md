@@ -1,2 +1,2 @@
 # ASHYUM_CSIT
-THIS Repository CONTAINS PROOF OF TASK PROVIDED IN ONLINE TRAINING/INTERNSHIP.
+This Repository Contains proof Of task provided in online Training/Internship.
