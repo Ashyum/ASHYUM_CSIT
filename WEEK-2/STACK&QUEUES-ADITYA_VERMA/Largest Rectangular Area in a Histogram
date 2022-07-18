@@ -1,0 +1,55 @@
+class Solution
+{
+    //Function to find largest rectangular area possible in a given histogram.
+    public static long [] nextSmallest(long [] hist,long n){
+        Stack<Integer> s = new Stack<>();
+        long[] nge = new long[(int)n];
+        for (int i = (int) (n-1); i >=0 ; i--) {
+            if (!s.isEmpty()) {
+                while (!s.isEmpty() && hist[s.peek()] >= hist[i]) {
+                    s.pop();
+                }
+            }
+            nge[i] = s.isEmpty() ? -1 : s.peek();
+            s.push(i);
+        }
+        return nge;
+    }
+
+    public static long[] prevSmallest(long [] hist,long n){
+        Stack<Integer> s = new Stack<>();
+        long[] nge = new long[(int)n];
+        for (int i =0 ; i < n ; i++) {
+            if (!s.isEmpty()) {
+                while (!s.isEmpty() && hist[s.peek()] >= hist[i]) {
+                    s.pop();
+                }
+            }
+            nge[i] = s.isEmpty() ? -1 : s.peek();
+            s.push(i);
+        }
+        return nge;
+    }
+    public static long getMaxArea(long hist[], long n) 
+    {
+        // your code here
+        long [] next;
+        next=nextSmallest(hist,n);
+
+        long []prev;
+        prev=prevSmallest(hist,n);
+
+        long area=Long.MIN_VALUE;
+        for(int i=0 ; i<n ; i++){
+            long length=hist[i];
+            if(next[i]==-1){
+                next[i]=n;
+            }
+            long width=next[i]-prev[i]-1;
+            long newArea=length*width;
+            area= Math.max(area,newArea);
+        }
+        return area;
+    }
+        
+}
