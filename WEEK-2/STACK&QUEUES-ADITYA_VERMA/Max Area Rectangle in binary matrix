@@ -1,0 +1,58 @@
+//https://practice.geeksforgeeks.org/problems/max-rectangle/1
+
+class Solution {
+    public int maxArea(int M[][], int n, int m) {
+        // add code here.
+        if(n==0)
+        return 0;
+        int max=0;
+        int rect[]=new int[m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(M[i][j]==0){
+                    rect[j]=0;
+                }
+                else
+                rect[j]++;
+            }
+            max=Math.max(max,findArea(rect));
+        }
+        return max;
+    }
+    int findArea(int[]h){
+        int n=h.length;
+        if(n==1)
+        return h[0];
+        int max=0;
+        Stack<Integer> st=new Stack<>();
+        st.add(0);
+        for(int i=1;i<n;i++){
+            int curr=h[i];
+            if(curr>=h[st.peek()])
+            st.add(i);
+            else{
+                while(!st.isEmpty()&&curr<h[st.peek()]){
+                    int temp=h[st.pop()];
+                    if(st.isEmpty()){
+                        max=Math.max(max,temp*i);
+                    }
+                    else{
+                        max=Math.max(max,temp*(i-1-st.peek()));
+                    }
+                }
+                st.add(i);
+            }
+        }
+        while(!st.isEmpty()){
+            int i=n;
+            int temp=h[st.pop()];
+            if(st.isEmpty()){
+                max=Math.max(max,temp*i);
+            }
+            else{
+                max=Math.max(max,temp*(i-1-st.peek()));
+            }
+        }
+        return max;
+    }
+}
