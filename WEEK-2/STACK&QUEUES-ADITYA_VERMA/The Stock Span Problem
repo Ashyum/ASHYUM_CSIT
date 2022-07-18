@@ -1,0 +1,27 @@
+class Solution
+{
+    static class Pair {
+        int first;
+        int second;
+        Pair(int first, int second) {
+            this.first = first;
+            this.second = second;
+        }
+    }
+    //Function to calculate the span of stocks price for all n days.
+    public static int[] calculateSpan(int arr[], int n)
+    {
+        int[] result = new int[n];
+        Stack<Pair> st = new Stack<>();
+        for(int i = 0; i < arr.length; i++) {
+            int count = 1;
+            if(!st.isEmpty())
+            while(!st.isEmpty() && arr[i] >= st.peek().first) {
+                count += st.peek().second;
+                st.pop();
+            }
+            st.add(new Pair(arr[i],count));
+            result[i] = st.peek().second;
+        }
+        return result;
+    }
