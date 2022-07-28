@@ -1,0 +1,35 @@
+
+class Solution {
+    int count(int[] arr, int n, int x) {
+        // code here
+        int i=0,j=n-1;
+        int idx=-1;
+        while(i<=j){
+            int mid=(i+j)/2;
+            if(arr[mid]==x){
+                idx=mid;
+                break;
+            }
+            else if(arr[mid]<x){
+                i=mid+1;
+                
+            }
+            else{
+                j=mid-1;
+            }
+        }
+        if(idx==-1){
+            return 0;
+        }
+        int ft=idx;
+        while(ft!=0 && arr[ft]==arr[ft-1]){
+            ft--;
+        }
+        int lt=idx;
+        while(lt!= n-1 && arr[lt]==arr[lt+1]){
+            lt++;
+        }
+        int count=lt-ft+1;
+        return count;
+    }
+}
