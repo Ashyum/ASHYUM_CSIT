@@ -1,0 +1,91 @@
+class Solution {
+    public static ArrayList<String> findPath(int[][] m, int n) {
+       ArrayList<String> list= new ArrayList<>();
+       if(m[0][0]==0) return list;
+       // if(m[n-1][n-1]==0) return list;
+        
+          int srx = 0;
+          int sry = 0;
+          
+          int[][] visited = new int[n][n];
+      
+         for(int i=0;i<n;i++)
+         {
+             for(int j=0;j<n;j++)
+             {
+                 visited[i][j]=0;
+             }
+         }
+          String sb = "";
+          
+          solve(m,n,srx,sry,sb,list,visited);
+       
+    //     Collections.sort(list);
+         
+         return list;
+       
+        
+        
+    }
+        
+public static void solve(int[][] m ,int n,int srx, int sry, String sb, ArrayList<String> list,int[][] visited)
+        {
+            if(srx==n-1 && sry==n-1)
+            {
+                list.add(sb);
+                return;
+            }
+    
+        //        visited[srx][sry]=1;
+                
+               if (srx + 1 < n && visited[srx + 1][sry] == 0 && m[srx + 1][sry] == 1) {
+                visited[srx][sry]=1;
+                 // sb.append('D');
+                 solve(m,n,srx+1,sry,sb+'D',list,visited);
+         visited[srx][sry]=0;
+                    //sb.setLength(sb.length()-1);
+                    
+                }
+           
+           if (srx - 1 >= 0 && visited[srx - 1][sry] == 0 && m[srx - 1][sry] == 1) {
+               visited[srx][sry]=1;
+                  //sb.append("U");
+                 solve(m,n,srx-1,sry,sb+'U',list,visited);
+         visited[srx][sry]=0;
+                //     sb.setLength(sb.length()-1);
+                    
+                }
+           
+           if (sry - 1 >=0 && visited[srx][sry-1] == 0 && m[srx][sry-1] == 1) {
+               visited[srx][sry]=1;
+                  //sb.append("L");
+                 solve(m,n,srx,sry-1,sb+'L',list,visited);
+         visited[srx][sry]=0;
+                  //  sb.setLength(sb.length()-1);
+                    
+                }
+           
+          if (sry + 1 < n && visited[srx][sry+1] == 0 && m[srx][sry+1] == 1) {
+              visited[srx][sry]=1;
+                  //sb.append("R");
+                 solve(m,n,srx,sry+1,sb+'R',list,visited);
+                 visited[srx][sry]=0;
+            //sb.setLength(sb.length()-1);
+                    
+                }
+           
+           
+           
+          //       visited[srx][sry]=0;
+        }
+        
+        
+        public static boolean isfair(int x, int y, int[][] m ,int n,int[][] visited)
+        {
+            if((x>=0 && x<n-1) && (y>=0 && y<n-1) && visited[x][y]==0 && m[x][y]==1 ) return true;
+            
+            return false;
+        }
+        
+        
+    }
