@@ -1,0 +1,27 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> ans=new ArrayList<List<String>>(1);
+        List<String> l=new ArrayList<String>(1);
+        return partition(0,s,l,ans);
+    }
+    static List<List<String>> partition(int index,String s,List<String> list,List<List<String>> ans){
+        if(s.isEmpty()){
+            List<String> internal=new ArrayList<>(list);
+            ans.add(internal);
+            return ans;
+        }
+        for(int i=index;i<s.length();i++){
+            if(checkPalindrome(s.substring(0,i+1))){
+                list.add(s.substring(0,i+1));
+                partition(index,s.substring(i+1),list,ans);
+                list.remove(list.size()-1);
+            }
+        }
+        return ans;
+    }
+    static boolean checkPalindrome(String str){
+        StringBuilder sb=new StringBuilder(str);
+        sb.reverse();
+        return str.equals(sb.toString());
+    }
+}
